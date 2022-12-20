@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/events/ResultsTitle";
@@ -41,6 +41,10 @@ const FileredEvent = (props) => {
   const date = new Date(year, month - 1);
   return (
     <div>
+      <Head>
+        <title>Filered Events</title>
+        <meta name="Events" content={`All events for ${month}/${year}`} />
+      </Head>
       <ResultsTitle date={date} />
       <EventList events={filteredEvents} />
     </div>

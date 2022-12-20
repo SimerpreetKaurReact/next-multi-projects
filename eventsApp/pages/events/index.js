@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import EventList from "../../components/events/EventList";
 import EventsSearch from "../../components/events/EventsSearch";
@@ -15,6 +16,10 @@ const Event = (props) => {
   };
   return (
     <div>
+      <Head>
+        <title> Events</title>
+        <meta name="Events" content="Upcoming events for your learning" />
+      </Head>
       <h1>Event page</h1>
 
       <EventsSearch onSearch={handleSearch} />

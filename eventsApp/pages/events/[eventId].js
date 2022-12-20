@@ -1,9 +1,10 @@
-import { useRouter } from "next/router";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventItem from "../../components/events/EventItem";
+import Comments from "../../components/input/comments";
 import ErrorAlert from "../../components/ui/ErrorAlert";
 import { getEventById, getEventIds } from "../../helper/api-utils";
 
@@ -25,6 +26,10 @@ const CurrentEvent = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="Events" content={event.description} />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
@@ -35,6 +40,7 @@ const CurrentEvent = (props) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };

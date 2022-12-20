@@ -87,3 +87,33 @@ export async function getServerSideProps(){
 - Highly user specific data
 - Partial data like data thats only used on a part of an page
 - pre rendering data will add data before page is loaded, so on first user does not see an empty page, and after that on client data is simply fetched again for normal client side ui experience
+
+# Head tag from next
+
+- supports dynamic head content
+- meta tags are also available in page source, so its userful for search optimization
+- if some head tag you want to add to all pages you should use \_app file, since it is rendered for every page
+- contents of different head sections get merged
+- if you same element like title in two head tags for same component, next will resolve such conflicts and use the latest on will win
+- page specific data in specific page file will be given priority of more general head data in \_app file, because the page component is rendered after the app component
+
+# \_app.js
+
+- it is the application shell/ root component inside the body section of the html document
+
+# \_document.js
+
+- allows to customize the entire html document
+
+# IMAGE
+
+Next.js will create multiple versions of our image on the fly when requests are coming in,
+optimize for the operating systems and device sizes that are making the request.
+And then those generated images will be cached for future requests from similar devices.
+
+# Backend
+
+some data storage tasks like accept user feedback submission, newsletter signup etc can be done from within next js app. These api's in api folder within pages is not visible at client side
+usin getStaticProps with backend api on the same server, its better to fetch data directly from backend instead of adding a seperate fetch request
+if there is a more specific page for a given path value, next will match with that
+catch all routes work with next
