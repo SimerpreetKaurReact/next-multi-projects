@@ -100,6 +100,8 @@ export async function getServerSideProps(){
 # \_app.js
 
 - it is the application shell/ root component inside the body section of the html document
+- next js has lazy laoding built in
+- this components also get pageProps frome get server side props for specific page eg: for profile page, if you are passing props via get server side props, \_app can access these pageprops
 
 # \_document.js
 
@@ -117,3 +119,45 @@ some data storage tasks like accept user feedback submission, newsletter signup 
 usin getStaticProps with backend api on the same server, its better to fetch data directly from backend instead of adding a seperate fetch request
 if there is a more specific page for a given path value, next will match with that
 catch all routes work with next
+
+# Deployment Options with next
+
+1. Standard build: next build
+
+   Produces optimized production bundles and a server side app: Requires a nodejs server
+   Pages are pre-rendered(if possible) but nodejs server is required for API routes, server side pages and page revalidations
+   Re- deploy needed if code changes or you dont use revalidations and need page updates
+
+2. Full static build: next export
+   Produces 100% static app(html, css, js). No node js server required
+   Doesnt work if your app uses API routes, server side pages or wants to use page revalidations ie, u cant use static paths with fallback set to true or fallback
+   Redeploy needed for all code and content changes
+
+# steps for deployment
+
+- Add page metadata, optimize code, remove unnecessary dependencies
+- Use environment variables for variable data(eg. data base credentials, apikeys..)
+- Do a test build and test the production ready app locally or on some test server
+
+//vercel, or netlify
+
+# Authentication
+
+1. Server side sessions- Store unique identifier on server, send same identifier to client. Client sends identifier along with requests to protected resources
+2. Authentication Tokens- Create (but not store) permissions token on server, send this token to client. Client sends token along with requests to protected resourxes
+
+Json web token : issuer data , custom data(data of the user), secret signing key:
+by creating a random string that incorporates all that data
+and is signed by that key.
+So you can't read that key,
+even if you unpack the token.
+And that token then is validated by the server with each sent request,
+which basically checks by signing key, would this token be regenerated again
+
+- next auth can be used for managing authentication
+- next manages active sessions by automatically storing cookies after successfull authentication
+
+# Next Auth
+
+- next auth manages the session by a jwt, which is automatically managed and stored by next auth in browser cookie,
+- it determines if we have an active session, so if this user is logged in, by checking that cookie and that token thats stored in that cookie
